@@ -41,7 +41,9 @@ io.sockets.on('connection', function(socket) {
     socket.on('chat_message', function(message) {
 		io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + message);		
 		//새로운 메세지가 전송 될 때 마다 키워드 탐지
-		dbConn.fnExtractDictKeyword(socket_id, io, message);
+		if(socket.username != "상담사"){
+			dbConn.fnExtractDictKeyword(socket_id, io, message);
+		}
 		//전송된 메세지 하나의 문서로 통합
 		contents += message+"\n";
     });
